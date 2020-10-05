@@ -11,8 +11,7 @@ Back End: <p>
   - [x] Mongo DB <p>
   - [x] Swagger <p>
     Documentaçao Swagger: https://me-levame.herokuapp.com/api-docs/<p>
-    Repositório: https://github.com/william0503/frota-veiculo-autonomo
-
+    
 Deploy: <p>
   - [x] Heroku <p> 
 http://me-leva-ai-vai.herokuapp.com/
