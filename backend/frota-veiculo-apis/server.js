@@ -5,6 +5,7 @@ const requireDir = require('require-dir');
 
 const swaggerUi = require('swagger-ui-express');
 const specs = require('./src/doc/swaggerDef');
+const routers = require('./src/routers');
  
 
 //Iniciando o App
@@ -16,7 +17,7 @@ app.use(cors());
 // Iniciando o DB
 mongoose.connect(
     //'mongodb://localhost:27017/frotaVeiculo',
-"mongodb+srv://william0503:senha1234@cluster0-8siwt.gcp.mongodb.net/frota-autonoma?retryWrites=true&w=majority",
+"mongodb+srv://jaquelaurenti:KcFupEy5CJejDk5T@progwebiii.ewalwob.mongodb.net/?retryWrites=true&w=majority",
     { 
         useNewUrlParser: true,
         useUnifiedTopology: true
@@ -24,10 +25,11 @@ mongoose.connect(
 );
 
 // Fazendo o Require do Schema
+console.log("chegou aqui");
 requireDir('./src/models');
 
 // consumindo a rota
-app.use('/api', require('./src/routes'));
+app.use('/api', routers );
 
 
 // instanciando o swagger 
