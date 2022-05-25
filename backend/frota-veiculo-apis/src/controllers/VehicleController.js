@@ -1,5 +1,4 @@
-const mongoose = require('mongoose');
-const Vehicle = mongoose.model('Vehicle');
+const Vehicle = require('../models/Vehicles');
 
 const index = async (req, res) => {
 
