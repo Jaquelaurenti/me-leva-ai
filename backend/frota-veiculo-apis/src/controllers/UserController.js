@@ -1,5 +1,5 @@
 const { rideService, userService } = require('../services');
-
+const User = require('../models/Users');
 const Logon = require('../models/Logon');
 
 const index = async (req, res) => {

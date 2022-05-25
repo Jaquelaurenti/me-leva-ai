@@ -1,5 +1,4 @@
-const mongoose = require('mongoose');
-const User = mongoose.model('User');
+const User = require('../models/Users');
 
 const findUserByTelephone = async (telephone) => {
     return await User.findOne({telephone: telephone})

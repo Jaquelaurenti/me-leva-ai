@@ -7,10 +7,11 @@ const swaggerUi = require('swagger-ui-express');
 const specs = require('./src/doc/swaggerDef');
 const routers = require('./src/routers');
  
-
+debugger
 //Iniciando o App
 const app = express();
 
+console.log("TESTE AQUI")
 app.use(express.json());
 app.use(cors());
 

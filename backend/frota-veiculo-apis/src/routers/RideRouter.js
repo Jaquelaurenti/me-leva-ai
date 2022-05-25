@@ -98,7 +98,7 @@ routerRide.get('/:id',rideController.status);
   *              schema:
   *                  $ref: '#/components/schemas/Ride'
   */
-routerRide.get('/users/:id',rideController.userHistory);
+routerRide.get('/users/:id', rideController.userHistory);
  
  
  

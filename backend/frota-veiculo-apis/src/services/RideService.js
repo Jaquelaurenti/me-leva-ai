@@ -1,6 +1,6 @@
-const mongoose = require('mongoose');
+const Ride = require('../models/Rides');
 const { vehicleService } = require('../services');
-const Ride = mongoose.model('Ride');
+ 
 
 const getRide = async (id) => {
     return await Ride.findById(id);

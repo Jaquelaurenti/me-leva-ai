@@ -77,5 +77,5 @@ const updateStatus = async (req, res) => {
 }
 
 module.exports = {
-   updateStatus, ask, history, status
+   updateStatus, ask, history, status, userHistory
 };
