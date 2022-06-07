@@ -1,13 +1,14 @@
-const User = require('../models/Users');
-
-const findUserByTelephone = async (telephone) => {
-    return await User.findOne({telephone: telephone})
-}; 
-
-const createUser = async (user) => {
-    return await User.create(user);
-}
+const mongoose = require('mongoose');
+const User = mongoose.model('User');
 
 module.exports = {
-    findUserByTelephone, createUser
+    async findUserByTelephone(telephone) {
+        return await User.findOne({telephone: telephone})
+    },
+    async findUserByTelephoneAndPassWord(telephone, password) {
+        return await User.findOne({telephone: telephone}, {password: password})
+    },
+    async createUser(user){
+        return await User.create(user);
+    }
 }

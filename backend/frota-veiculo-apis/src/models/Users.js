@@ -16,11 +16,15 @@ const mongoosePaginate = require('mongoose-paginate');
  *              type: string
  *          email:
  *              type: string
+ *          password:
+ *              type: string
+ * 
  * 
  *        required:
  *          - name
  *          - telephone
  *          - email
+ *          - password
  *          
  */
 const UserSchema = new mongoose.Schema({
@@ -33,6 +37,10 @@ const UserSchema = new mongoose.Schema({
         required: true,
     },
     email:{
+        type: String,
+        required: true,
+    },
+    password:{
         type: String,
         required: true,
     },
