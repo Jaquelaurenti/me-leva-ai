@@ -27,7 +27,7 @@ mongoose.connect(
 requireDir('./src/models');
 
 // consumindo a rota
-app.use('/api', require('./src/routes'));
+app.use('/api', require('./src/routers/index.routes'));
 
 
 // instanciando o swagger 

@@ -2,11 +2,14 @@ const userService = require('../services/UserService');
 const jwt = require('jsonwebtoken');
 const mongoose = require('mongoose');
 const User = mongoose.model('User');
+require('dotenv').config();
+
+console.log(process.env.SECRET_KEY);
 
 
 module.exports = {
     async index(req, res) {
-     
+
         const { page = 1 } = req.query;
 
         const users = await User.paginate({}, { page, limit: 10 });
@@ -19,7 +22,7 @@ module.exports = {
         let user = await userService.findUserByTelephone(telephone)
 
         if (!user) {
-            return res.status(400).send('Usuário não cadastrado');
+            return res.status(404).send('Usuário não cadastrado');
         }
 
         return res.json(user);
@@ -30,7 +33,7 @@ module.exports = {
         let user = await userService.findUserByTelephone(telephone)
 
         if (user) {
-            return res.status(400).send('Usuário já cadastrado');
+            return res.status(406).send('Usuário já cadastrado');
         }
 
         user = await userService.createUser(req.body)
@@ -58,7 +61,8 @@ module.exports = {
         let user = await userService.findUserByTelephone(telephone)
 
         if (!user) {
-            return res.status(400).send('Usuário não cadastrado');
+            return res.status(400)
+                .json({ message: 'Usuário não cadastrado' });
         }
 
         user = await User.findByIdAndRemove(user._id);
@@ -70,8 +74,7 @@ module.exports = {
         const { telephone, password } = req.body;
         let user = await userService.findUserByTelephoneAndPassWord(telephone, password);
         if (!user) {
-            return res.status(500)
-                .json({ message: 'Login inválido!' });
+            return res.status(500).json({ message: 'Login inválido!' });
         }
         const token = jwt.sign({ user }, "testeJaque", {
             expiresIn: 3000 // expiração
