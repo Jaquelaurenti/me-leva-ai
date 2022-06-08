@@ -5,7 +5,6 @@
   "main": "frota-veiculo-apis/server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "swagger-autogen": "node frota-veiculo-apis/swagger.js",
     "dev": "nodemon frota-veiculo-apis/server.js"
   },
   "keywords": [],

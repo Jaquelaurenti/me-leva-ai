@@ -18,7 +18,7 @@ export default App;
 // As propriedades no React são atributos passados para os componentes.
   // const [counter, setValue] = useState(0);
 
-  // // Quando utlizamos o useStae é retornado um array, 
+  // // Quando utlizamos o useStae é retornado um array,
   // // onde o Array possui duas posições [valor, funcao que atualiza]
 
   // function increment(){

@@ -24,7 +24,7 @@ const options = {
     ]
   },
   apis: [
-    '../backend/frota-veiculo-apis/src/routes.js',
+    '../backend/frota-veiculo-apis/src/routers/*.js',
     '../backend/frota-veiculo-apis/src/models/*.js']
 };
 

@@ -1,4 +1,4 @@
-//Criando o Schema 
+//Criando o Schema
 
 const mongoose = require('mongoose');
 const mongoosePaginate = require('mongoose-paginate');
@@ -24,44 +24,44 @@ const mongoosePaginate = require('mongoose-paginate');
  *              type: date
  *          finishTime:
  *              type: date
- * 
+ *
  *        required:
  *          - User
  *          - Vehicle
  *          - StartPlace
  *          - FinishPlace
  *          - Status
- *          
+ *
  */
 const RideSchema = new mongoose.Schema({
-    user:{
-        type: Object,
-        required: true
-    },
-    vehicle:{
-        type: Object,
-        required: true
-    },
-    startPlace:{
-        type: String,
-        required: true
-    },
-    finishPlace:{
-        type: String,
-        required: true
-    },
-    status:{
-        type: String,
-        required: true
-    },
-    startTime:{
-        type: Date,
-        required: false
-    },
-    finishTime:{
-        type: Date,
-        required: false
-    }
+  user: {
+    type: Object,
+    required: true
+  },
+  vehicle: {
+    type: Object,
+    required: true
+  },
+  startPlace: {
+    type: String,
+    required: true
+  },
+  finishPlace: {
+    type: String,
+    required: true
+  },
+  status: {
+    type: String,
+    required: true
+  },
+  startTime: {
+    type: Date,
+    required: false
+  },
+  finishTime: {
+    type: Date,
+    required: false
+  }
 });
 
 // Registrando o mongoose paginate da Aplicação

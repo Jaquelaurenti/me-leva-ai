@@ -1,11 +1,11 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const cors= require('cors');
+const cors = require('cors');
 const requireDir = require('require-dir');
 
 const swaggerUi = require('swagger-ui-express');
 const specs = require('./src/doc/swaggerDef');
- 
+
 
 //Iniciando o App
 const app = express();
@@ -15,12 +15,12 @@ app.use(cors());
 
 // Iniciando o DB
 mongoose.connect(
-    //'mongodb://localhost:27017/frotaVeiculo',
-"mongodb+srv://jaquelaurenti:EwHBj5geNVER1NDo@melevaai.ixn5yx1.mongodb.net/?retryWrites=true&w=majority",
-    { 
-        useNewUrlParser: true,
-        useUnifiedTopology: true
-     }
+  //'mongodb://localhost:27017/frotaVeiculo',
+  "mongodb+srv://jaquelaurenti:EwHBj5geNVER1NDo@melevaai.ixn5yx1.mongodb.net/?retryWrites=true&w=majority",
+  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  }
 );
 
 // Fazendo o Require do Schema
@@ -30,7 +30,7 @@ requireDir('./src/models');
 app.use('/api', require('./src/routers/index.routes'));
 
 
-// instanciando o swagger 
+// instanciando o swagger
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
 
 

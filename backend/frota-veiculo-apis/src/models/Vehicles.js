@@ -1,4 +1,4 @@
-//Criando o Schema 
+//Criando o Schema
 
 const mongoose = require('mongoose');
 const mongoosePaginate = require('mongoose-paginate');
@@ -16,26 +16,26 @@ const mongoosePaginate = require('mongoose-paginate');
  *              type: string
  *          status:
  *              type: string
- * 
+ *
  *        required:
  *          - model
  *          - licensePlate
  *          - status
- *          
+ *
  */
 const VehicleSchema = new mongoose.Schema({
-    model:{
-        type: String,
-        required: true,
-    },
-    licensePlate:{
-        type: String,
-        required: true,
-    },
-    status:{
-        type: String,
-        required: true
-    }
+  model: {
+    type: String,
+    required: true,
+  },
+  licensePlate: {
+    type: String,
+    required: true,
+  },
+  status: {
+    type: String,
+    required: true
+  }
 });
 
 // Registrando o mongoose paginate da Aplicação

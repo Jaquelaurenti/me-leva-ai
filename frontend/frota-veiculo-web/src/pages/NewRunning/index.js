@@ -6,63 +6,63 @@ import logoImg from '../../assets/logo.png';
 
 import api from '../../services/api'
 
-export default function NewRunning(){
-    const [startPlace, setstartPlace ] = useState('');
-    const [finishPlace, setfinishPlace ] = useState('');
-    const telephone = localStorage.getItem('userPhone');
-    const history = useHistory();
-    async function handleNewIncident(event){
-        event.preventDefault();
+export default function NewRunning() {
+  const [startPlace, setstartPlace] = useState('');
+  const [finishPlace, setfinishPlace] = useState('');
+  const telephone = localStorage.getItem('userPhone');
+  const history = useHistory();
+  async function handleNewIncident(event) {
+    event.preventDefault();
 
-        const data ={
-            telephone,
-            startPlace, 
-            finishPlace,
-        };
+    const data = {
+      telephone,
+      startPlace,
+      finishPlace,
+    };
 
-        try{
-           const res = await api.post('rides', data);
-           
-           //////// mandar para a nova tela de acompahamento da corrida
-           history.push('/race/new', res.data);
+    try {
+      const res = await api.post('rides', data);
 
-        } catch(err){
-            //alert('Erro ao solicitar corrida, tente novamente!')
-            alert(err.response.data);
-        }
+      //////// mandar para a nova tela de acompahamento da corrida
+      history.push('/race/new', res.data);
 
+    } catch (err) {
+      //alert('Erro ao solicitar corrida, tente novamente!')
+      alert(err.response.data);
     }
-    return (
-        <div className="new-incident-container">
-            <div className="content">
-                <section>
-                <img src={logoImg} alt="Me Leva Ai"/>
-                <h1>Cadastrar nova corrida</h1>
-                <p>Informe a sua Origem e o seu Destino que o Me Leva Aí te leva!.</p>
 
-                <Link className="back-link" to="/profile">
-                    <FiArrowLeft size={16} color = "#E02041"/>
-                    Voltar para Home
-                </Link>
+  }
+  return (
+    <div className="new-incident-container">
+      <div className="content">
+        <section>
+          <img src={logoImg} alt="Me Leva Ai" />
+          <h1>Cadastrar nova corrida</h1>
+          <p>Informe a sua Origem e o seu Destino que o Me Leva Aí te leva!.</p>
 
-                </section>
-                <form onSubmit={handleNewIncident}>
+          <Link className="back-link" to="/profile">
+            <FiArrowLeft size={16} color="#E02041" />
+            Voltar para Home
+          </Link>
 
-                <input 
-                    placeholder="Origem" 
-                    value={startPlace}
-                    onChange={e=>setstartPlace(e.target.value)}
-                    />
-                <input
-                    placeholder="Destino" 
-                    value={finishPlace}
-                    onChange={e=>setfinishPlace(e.target.value)}
-                    />
+        </section>
+        <form onSubmit={handleNewIncident}>
 
-                <button className="button" type="submit">Solicitar</button>
+          <input
+            placeholder="Origem"
+            value={startPlace}
+            onChange={e => setstartPlace(e.target.value)}
+          />
+          <input
+            placeholder="Destino"
+            value={finishPlace}
+            onChange={e => setfinishPlace(e.target.value)}
+          />
 
-                </form>
-            </div>
-        </div>
-    );
+          <button className="button" type="submit">Solicitar</button>
+
+        </form>
+      </div>
+    </div>
+  );
 }

@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken');
 
 module.exports = (req, res, next) => {
+  // busca do header que será armazenado o token
   const token = req.headers['x-access-token'];
   if (!token) return res.status(401).json({ auth: false, message: 'No token provided.' });
 

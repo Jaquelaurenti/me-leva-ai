@@ -5,8 +5,8 @@ const express = require('express');
 const routes = express.Router();
 
 
-routes.use('/user',  userRoutes);
-routes.use('/ride',  rideRoutes);
+routes.use('/user', userRoutes);
+routes.use('/ride', rideRoutes);
 routes.use('/vehicle', vehicleRoutes);
 
 module.exports = routes;
