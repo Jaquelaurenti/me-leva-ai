@@ -28,7 +28,7 @@ export default function NewRunning() {
 
     } catch (err) {
       //alert('Erro ao solicitar corrida, tente novamente!')
-      alert(err.response.data);
+      alert(err.response.data.message);
     }
 
   }

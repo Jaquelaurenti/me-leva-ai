@@ -6,7 +6,7 @@ const routes = express.Router();
 
 
 routes.use('/user', userRoutes);
-routes.use('/ride', rideRoutes);
+routes.use('/rides', rideRoutes);
 routes.use('/vehicle', vehicleRoutes);
 
 module.exports = routes;

@@ -5,7 +5,7 @@
   "main": "frota-veiculo-apis/server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon frota-veiculo-apis/server.js"
+    "dev": "nodemon --inspect frota-veiculo-apis/server.js"
   },
   "keywords": [],
   "author": "",

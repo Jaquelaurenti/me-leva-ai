@@ -11,6 +11,7 @@ export default function Register() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [telephone, setTelephone] = useState('');
+  const [password, setPassword] = useState('');
 
   const history = useHistory();
 
@@ -18,15 +19,15 @@ export default function Register() {
     event.preventDefault();
 
     // Objeto que está sendo instanciado pelo input e será utilizado na API
-    const data = { name, email, telephone };
+    const data = { name, email, telephone, password };
 
     try {
-      const res = await api.post('users', data);
+      const res = await api.post('user', data);
       alert(`Seu ID de acesso: ${res.data.telephone}`);
       history.push('/');
     }
     catch (err) {
-      alert(err.response.data)
+      alert(err.response.data.message);
     }
   }
 
@@ -62,6 +63,12 @@ export default function Register() {
             placeholder="Telefone"
             value={telephone}
             onChange={e => setTelephone(e.target.value)}
+          />
+          <input
+            placeholder="Senha"
+            value={password}
+            type={'password'}
+            onChange={e => setPassword(e.target.value)}
           />
 
           <button className="button" type="submit">Cadastrar</button>
