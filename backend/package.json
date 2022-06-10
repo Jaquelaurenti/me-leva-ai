@@ -5,7 +5,8 @@
   "main": "frota-veiculo-apis/server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon --inspect frota-veiculo-apis/server.js"
+    "dev": "nodemon --inspect frota-veiculo-apis/server.js",
+    "swagger-autogen": "node frota-veiculo-apis/swagger.js"
   },
   "keywords": [],
   "author": "",
@@ -21,7 +22,7 @@
     "require-dir": "^1.2.0",
     "swagger-autogen": "^2.21.3",
     "swagger-jsdoc": "^4.0.0",
-    "swagger-ui-express": "^4.1.4"
+    "swagger-ui-express": "^4.4.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.2"
