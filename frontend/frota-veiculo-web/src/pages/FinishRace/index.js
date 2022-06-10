@@ -24,9 +24,15 @@ export default function FinishRace(props) {
 
     // Objeto que está sendo instanciado pelo input e será utilizado na API
     const data = { "type": "finish" };
+    const token = localStorage.getItem('token');
 
     try {
-      await api.patch('rides/' + props.location.state._id, data);
+      await api.patch('rides/' + props.location.state._id, data,
+        {
+          headers: {
+            'x-access-token': `${token}`
+          }
+        });
       history.push('/profile');
     }
     catch (err) {

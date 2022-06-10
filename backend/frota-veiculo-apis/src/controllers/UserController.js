@@ -24,7 +24,8 @@ const store = async (req, res) => {
     let user = await userService.findUserByTelephone(telephone)
 
     if (user) {
-      return res.status(406).send('Usuário já cadastrado');
+      return res.status(406).
+        json({ message: 'Usuário já cadastrado' });
     }
     user = await userService.createUser(req.body);
     return res.status(201).json(user);

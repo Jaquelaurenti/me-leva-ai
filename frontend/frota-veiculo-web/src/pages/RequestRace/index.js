@@ -22,9 +22,15 @@ export default function RequestRace(props) {
     event.preventDefault();
 
     const data = { "type": "start" };
+    const token = localStorage.getItem('token');
 
     try {
-      const res = await api.patch('rides/' + props.location.state._id, data);
+      const res = await api.patch('rides/' + props.location.state._id, data,
+        {
+          headers: {
+            'x-access-token': `${token}`
+          }
+        });
       history.push('/race/finish', res.data);
     }
     catch (err) {

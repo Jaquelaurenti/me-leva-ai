@@ -14,9 +14,15 @@ export default function Profile() {
 
 
   const history = useHistory();
+  const token = localStorage.getItem('token');
 
   useEffect(() => {
-    api.get('rides/users/' + userPhone + '?page=' + page)
+    api.get('rides/users/' + userPhone + '?page=' + page,
+      {
+        headers: {
+          'x-access-token': `${token}`
+        }
+      })
       .then(res => {
         setItems(res.data.docs);
         setPages(res.data.pages);

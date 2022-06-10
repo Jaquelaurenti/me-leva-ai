@@ -14,6 +14,8 @@ export default function NewRunning() {
   async function handleNewIncident(event) {
     event.preventDefault();
 
+    const token = localStorage.getItem('token');
+
     const data = {
       telephone,
       startPlace,
@@ -21,7 +23,12 @@ export default function NewRunning() {
     };
 
     try {
-      const res = await api.post('rides', data);
+      const res = await api.post('rides', data,
+        {
+          headers: {
+            'x-access-token': `${token}`
+          }
+        });
 
       //////// mandar para a nova tela de acompahamento da corrida
       history.push('/race/new', res.data);
