@@ -3,30 +3,6 @@
 const mongoose = require('mongoose');
 const mongoosePaginate = require('mongoose-paginate');
 
-/**
- * @swagger
- * components:
- *  schemas:
- *      User:
- *        type: object
- *        properties:
- *          name:
- *              type: string
- *          telephone:
- *              type: string
- *          email:
- *              type: string
- *          password:
- *              type: string
- *
- *
- *        required:
- *          - name
- *          - telephone
- *          - email
- *          - password
- *
- */
 const UserSchema = new mongoose.Schema({
   name: {
     type: String,

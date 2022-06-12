@@ -16,7 +16,7 @@ app.use(cors());
 // Iniciando o DB
 mongoose.connect(
   //'mongodb://localhost:27017/frotaVeiculo',
-  "mongodb+srv://jaquelaurenti:EwHBj5geNVER1NDo@melevaai.ixn5yx1.mongodb.net/?retryWrites=true&w=majority",
+  "mongodb+srv://jaquelaurenti:pljOqvAqFkIOQofD@melevaai.791smmp.mongodb.net/?retryWrites=true&w=majority",
   {
     useNewUrlParser: true,
     useUnifiedTopology: true

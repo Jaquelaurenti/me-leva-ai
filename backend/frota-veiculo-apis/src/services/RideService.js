@@ -1,54 +1,177 @@
-const mongoose = require('mongoose');
+
 const vehicleService = require('../services/VehicleService');
-const Ride = mongoose.model('Ride');
+const rideRepository = require('../repositories/RideRepository');
+const userService = require('../services/UserService');
 
-const getRide = async (id) => {
-  return await Ride.findById(id);
+const status = async (id) => {
+  try {
+    const rides = await rideRepository.getRides(id);
+    if (!rides) {
+      return {
+        statusCode: 404,
+        data: 'Nenhuma corrida encontrada!'
+      }
+    }
+    return {
+      statusCode: 200,
+      data: rides
+    }
+  }
+  catch (error) {
+    return {
+      statusCode: 500,
+      data: error
+    }
+  }
 }
-const getRides = async (page) => {
-  console.log('getRides')
-  return await Ride.paginate({}, { page, limit: 10 });
-}
-const getUserRides = async (telephone, page) => {
-  console.log(telephone)
-  return await Ride.paginate({ 'user.telephone': telephone }, { page, limit: 10 });
-}
-const askNewRide = async (user, vehicle, startPlace, finishPlace) => {
-  return await Ride.create({
-    user: user,
-    vehicle: vehicle,
-    startPlace: startPlace,
-    finishPlace: finishPlace,
-    status: 'asked'
-  });
-}
-const startRide = async (ride) => {
 
-  ride.startTime = new Date();
-  ride.status = 'started';
+const history = async (page) => {
+  try {
+    const rides = await rideRepository.getRides(page);
+    if (!rides) {
+      return {
+        statusCode: 404,
+        data: 'Nenhuma corrida encontrada!'
+      }
+    }
+    return {
+      statusCode: 200,
+      data: rides
+    }
+  }
+  catch (error) {
+    return {
+      statusCode: 500,
+      data: error
+    }
+  }
 
-  return await Ride.findByIdAndUpdate(ride._id, ride, { new: true });
 }
-const finishRide = async (ride) => {
 
-  ride.finishTime = new Date();
-  ride.status = 'finished';
-
-  //ride.vehicle = vehicleService.setVehicleAvailable(ride.vehicle);
-  vehicleService.setVehicleAvailable(ride.vehicle);
-
-  return await Ride.findByIdAndUpdate(ride._id, ride, { new: true });
+const userHistory = async (telephone, page) => {
+  try {
+    const history = await rideRepository.getUserRides(telephone, page)
+    if (!history) {
+      return {
+        statusCode: 404,
+        data: 'Nenhuma corrida encontrada!'
+      }
+    }
+    return {
+      statusCode: 200,
+      data: history
+    }
+  }
+  catch (error) {
+    return {
+      statusCode: 500,
+      data: error
+    }
+  }
 }
-const checkBusyUser = async (user) => {
-  return await Ride.findOne({ $and: [{ "user.telephone": user.telephone }, { $or: [{ status: "asked" }, { status: "started" }] }] });
+
+const ask = async (telephone, startPlace, finishPlace) => {
+  try {
+    const user = await userService.findUserByTelephone(telephone);
+
+    if (!user) {
+      return {
+        statusCode: 404,
+        data: 'Nenhum usuário encontrado!'
+      }
+    } else {
+      const busyUser = await rideRepository.checkBusyUser(user);
+
+      if (busyUser) {
+        return {
+          statusCode: 403,
+          data: 'O usuário já está em uma corrida'
+        }
+      }
+    }
+
+    let vehicle = await vehicleService.getAvailableVehicle();
+
+    if (vehicle) {
+      vehicle = await vehicleService.setVehicleBusy(vehicle);
+    }
+    else {
+      vehicle = await vehicleService.createVehicleAutomatic();
+    }
+
+    const ride = await rideRepository.askNewRide(user, vehicle, startPlace, finishPlace);
+
+    return {
+      statusCode: 201,
+      data: ride
+    }
+  }
+  catch (error) {
+    return {
+      statusCode: 500,
+      data: error
+    }
+  }
 }
+
+const updateStatus = async (id, type) => {
+  try {
+
+    let ride = await rideRepository.getRide(id);
+
+    if (!ride) {
+      return {
+        statusCode: 404,
+        data: 'Corrida não encontrada!'
+      }
+    }
+
+    switch (type) {
+      case 'start':
+        if (ride.status == 'started') {
+          return {
+            statusCode: 400,
+            data: 'Corrida já iniciada!'
+          }
+        }
+        else if (ride.status == 'finished') {
+          return {
+            statusCode: 400,
+            data: 'Corrida já encerrada!'
+          }
+        }
+      case 'finish':
+        if (ride.status == 'asked') {
+          return {
+            statusCode: 400,
+            data: 'Corrida não iniciada!'
+          }
+        } else if (ride.status == 'finished') {
+          return {
+            statusCode: 400,
+            data: 'Corrida já encerrada!'
+          }
+        }
+        const data = await rideRepository.finishRide(ride);
+        return {
+          statusCode: 200,
+          data: data
+        }
+      default:
+        return {
+          statusCode: 200,
+          data: 'O valor aguardado é start ou finished!'
+        }
+    }
+  }
+  catch (error) {
+    return {
+      statusCode: 500,
+      data: error
+    }
+  }
+}
+
 module.exports = {
-  checkBusyUser,
-  finishRide,
-  startRide,
-  startRide,
-  askNewRide,
-  getRide,
-  getRides,
-  getUserRides
-}
+  status, ask, updateStatus, history, userHistory
+};

@@ -1,0 +1,54 @@
+const mongoose = require('mongoose');
+const vehicleService = require('../services/VehicleService');
+const Ride = mongoose.model('Ride');
+
+const getRide = async (id) => {
+  return await Ride.findById(id);
+}
+const getRides = async (page) => {
+  console.log('getRides')
+  return await Ride.paginate({}, { page, limit: 10 });
+}
+const getUserRides = async (telephone, page) => {
+  console.log(telephone)
+  return await Ride.paginate({ 'user.telephone': telephone }, { page, limit: 10 });
+}
+const askNewRide = async (user, vehicle, startPlace, finishPlace) => {
+  return await Ride.create({
+    user: user,
+    vehicle: vehicle,
+    startPlace: startPlace,
+    finishPlace: finishPlace,
+    status: 'asked'
+  });
+}
+const startRide = async (ride) => {
+
+  ride.startTime = new Date();
+  ride.status = 'started';
+
+  return await Ride.findByIdAndUpdate(ride._id, ride, { new: true });
+}
+const finishRide = async (ride) => {
+
+  ride.finishTime = new Date();
+  ride.status = 'finished';
+
+  //ride.vehicle = vehicleService.setVehicleAvailable(ride.vehicle);
+  vehicleService.setVehicleAvailable(ride.vehicle);
+
+  return await Ride.findByIdAndUpdate(ride._id, ride, { new: true });
+}
+const checkBusyUser = async (user) => {
+  return await Ride.findOne({ $and: [{ "user.telephone": user.telephone }, { $or: [{ status: "asked" }, { status: "started" }] }] });
+}
+module.exports = {
+  checkBusyUser,
+  finishRide,
+  startRide,
+  startRide,
+  askNewRide,
+  getRide,
+  getRides,
+  getUserRides
+}
