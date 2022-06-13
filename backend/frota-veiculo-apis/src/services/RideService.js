@@ -1,11 +1,13 @@
 
-const vehicleService = require('../services/VehicleService');
+const vehicleRepository = require('../repositories/VehicleRepository');
 const rideRepository = require('../repositories/RideRepository');
-const userService = require('../services/UserService');
+const userRepository = require('../repositories/UserRepository');
 
 const status = async (id) => {
   try {
     const rides = await rideRepository.getRides(id);
+    console.log("estou aqui")
+    console.log(rides)
     if (!rides) {
       return {
         statusCode: 404,
@@ -72,7 +74,10 @@ const userHistory = async (telephone, page) => {
 
 const ask = async (telephone, startPlace, finishPlace) => {
   try {
-    const user = await userService.findUserByTelephone(telephone);
+    console.log("estou aqui")
+    const user = await userRepository.findUserByTelephone(telephone);
+
+    console.log(user);
 
     if (!user) {
       return {
@@ -90,13 +95,13 @@ const ask = async (telephone, startPlace, finishPlace) => {
       }
     }
 
-    let vehicle = await vehicleService.getAvailableVehicle();
+    let vehicle = await vehicleRepository.getAvailableVehicle();
 
     if (vehicle) {
-      vehicle = await vehicleService.setVehicleBusy(vehicle);
+      vehicle = await vehicleRepository.setVehicleBusy(vehicle);
     }
     else {
-      vehicle = await vehicleService.createVehicleAutomatic();
+      vehicle = await vehicleRepository.createVehicleAutomatic();
     }
 
     const ride = await rideRepository.askNewRide(user, vehicle, startPlace, finishPlace);
@@ -107,6 +112,7 @@ const ask = async (telephone, startPlace, finishPlace) => {
     }
   }
   catch (error) {
+    console.log(error)
     return {
       statusCode: 500,
       data: error
@@ -117,7 +123,11 @@ const ask = async (telephone, startPlace, finishPlace) => {
 const updateStatus = async (id, type) => {
   try {
 
+    console.log("stou aqui")
+    console.log(id, type)
+
     let ride = await rideRepository.getRide(id);
+    console.log(ride)
 
     if (!ride) {
       return {
@@ -140,22 +150,29 @@ const updateStatus = async (id, type) => {
             data: 'Corrida já encerrada!'
           }
         }
+        const dataStart = await rideRepository.startRide(ride);
+        return {
+          statusCode: 200,
+          data: dataStart
+        }
+
       case 'finish':
         if (ride.status == 'asked') {
           return {
             statusCode: 400,
             data: 'Corrida não iniciada!'
           }
+
         } else if (ride.status == 'finished') {
           return {
             statusCode: 400,
             data: 'Corrida já encerrada!'
           }
         }
-        const data = await rideRepository.finishRide(ride);
+        const dataFinish = await rideRepository.finishRide(ride);
         return {
           statusCode: 200,
-          data: data
+          data: dataFinish
         }
       default:
         return {
@@ -165,6 +182,7 @@ const updateStatus = async (id, type) => {
     }
   }
   catch (error) {
+    console.log(error)
     return {
       statusCode: 500,
       data: error

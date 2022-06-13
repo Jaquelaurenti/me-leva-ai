@@ -2,13 +2,13 @@
 const rideService = require('../services/RideService');
 
 const status = async (req, res) => {
-  const response = rideService.getRide(req.params._id);
+  const response = rideService.status(req.params._id);
   return res.status(response.statusCode).json(response.data);
 }
 
 const history = async (req, res) => {
   const { page = 1 } = req.query;
-  const response = await rideService.getRides(page);
+  const response = await rideService.history(page);
   return res.status(response.statusCode).json(response.data);
 
 }
@@ -16,13 +16,15 @@ const history = async (req, res) => {
 const userHistory = async (req, res) => {
   const telephone = req.params.id;
   const { page = 1 } = req.query;
-  const response = await rideService.getUserRides(telephone, page);
+  const response = await rideService.userHistory(telephone, page);
   return res.status(response.statusCode).json(response.data);
 
 }
 
 const ask = async (req, res) => {
   const { telephone, startPlace, finishPlace } = req.body;
+
+  console.log(req.body);
   const response = await rideService.ask(telephone, startPlace, finishPlace);
   return res.status(response.statusCode).json(response.data);
 }

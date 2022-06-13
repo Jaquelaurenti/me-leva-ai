@@ -29,6 +29,7 @@ export default function NewRunning() {
             'x-access-token': `${token}`
           }
         });
+      console.log(data)
 
       //////// mandar para a nova tela de acompahamento da corrida
       history.push('/race/new', res.data);

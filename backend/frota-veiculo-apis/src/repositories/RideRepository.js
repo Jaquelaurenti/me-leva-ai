@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const vehicleService = require('../services/VehicleService');
+const vehicleRepository = require('../repositories/VehicleRepository');
 const Ride = mongoose.model('Ride');
 
 const getRide = async (id) => {
@@ -34,8 +34,8 @@ const finishRide = async (ride) => {
   ride.finishTime = new Date();
   ride.status = 'finished';
 
-  //ride.vehicle = vehicleService.setVehicleAvailable(ride.vehicle);
-  vehicleService.setVehicleAvailable(ride.vehicle);
+  //ride.vehicle = vehicleRepository.setVehicleAvailable(ride.vehicle);
+  vehicleRepository.setVehicleAvailable(ride.vehicle);
 
   return await Ride.findByIdAndUpdate(ride._id, ride, { new: true });
 }
@@ -45,7 +45,6 @@ const checkBusyUser = async (user) => {
 module.exports = {
   checkBusyUser,
   finishRide,
-  startRide,
   startRide,
   askNewRide,
   getRide,

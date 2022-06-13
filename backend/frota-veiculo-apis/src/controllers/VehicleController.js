@@ -1,89 +1,36 @@
 const vehicleService = require('../services/VehicleService');
 
 const index = async (req, res) => {
-  try {
-    const { page = 1 } = req.query;
-    const vehicles = await vehicleService.paginate(page);
-    if (!vehicles) {
-      return res.status(404)
-        .json({ message: 'Nenhum veículo encontrado' });
-    }
-    return res.json(vehicles);
-  }
-  catch (error) {
-    return res.status(500).json({
-      message: error
-    });
-  }
-
+  const { page = 1 } = req.query;
+  const response = await vehicleService.index(page);
+  return res.status(response.statusCode).json(response.data);
 };
 
 const show = async (req, res) => {
-  try {
-    const vehicles = await vehicleService.findById(req.params.id);
-    if (!vehicles) {
-      return res.status(404)
-        .json({ message: 'Nenhum veículo encontrado' });
-    }
-    return res.json(vehicles);
-  }
-  catch (error) {
-    return res.status(500).json({
-      message: error
-    });
-  }
+  const id = req.params.id;
+  const response = await vehicleService.show(id);
+  return res.status(response.statusCode).json(response.data);
 
 };
 
 const store = async (req, res) => {
-  try {
-    const vehicles = await vehicleService.create(req.body);
-    if (!vehicles) {
-      return res.status(404)
-        .json({ message: 'Nenhum veículo encontrado' });
-    }
-    return res.json(vehicles);
-  }
-  catch (error) {
-    return res.status(500).json({
-      message: error
-    });
-  }
-
+  const vehicle = req.body;
+  const response = await vehicleService.store(vehicle);
+  return res.status(response.statusCode).json(response.data);
 };
 
 const update = async (req, res) => {
-  try {
-    const vehicles = await vehicleService.findByIdAndUpdate(req.params.id, req.body, { new: true });
-    if (!vehicles) {
-      return res.status(404)
-        .json({ message: 'Nenhum veículo encontrado' });
-    }
-    return res.json(vehicles);
-  }
-  catch (error) {
-    return res.status(500).json({
-      message: error
-    });
-  }
+  const id = req.params.id;
+  const vehicle = req.body;
+  const response = await vehicleService.update(id, vehicle);
+  return res.status(response.statusCode).json(response.data);
 
 };
 
 const destroy = async (req, res) => {
-  try {
-    const vehicles = await vehicleService.findByIdAndRemove(req.params.id);
-    if (!vehicles) {
-      return res.status(404)
-        .json({ message: 'Nenhum veículo encontrado' });
-    }
-    return res.send();
-  }
-  catch (error) {
-    return res.status(500).json({
-      message: error
-    });
-  }
-
+  const id = req.params.id;
+  const response = await vehicleService.destroy(id);
+  return res.status(response.statusCode).json(response.data);
 };
 
 module.exports = {
