@@ -5,7 +5,7 @@ const findUserByTelephone = async (telephone) => {
   return await User.findOne({ telephone: telephone })
 }
 const findUserByTelephoneAndPassWord = async (telephone, password) => {
-  return await User.findOne({ telephone: telephone }, { password: password })
+  return await User.findOne({ telephone: telephone }, { password: password });
 }
 const createUser = async (user) => {
   return await User.create(user);
