@@ -102,6 +102,7 @@ const destroy = async (telephone) => {
 const logon = async (telephone, password) => {
   try {
     const user = await userRepository.findUserByTelephoneAndPassWord(telephone, password);
+    console.log(user)
     if (!user) {
       return {
         statusCode: 500,

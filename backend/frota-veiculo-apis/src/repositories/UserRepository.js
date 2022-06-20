@@ -2,11 +2,13 @@ const mongoose = require('mongoose');
 const User = mongoose.model('User');
 
 const findUserByTelephone = async (telephone) => {
-  return await User.findOne({ telephone: telephone })
+  return await User.findOne({ telephone: telephone });
 }
 const findUserByTelephoneAndPassWord = async (telephone, password) => {
-  return await User.findOne({ telephone: telephone }, { password: password });
+  const response = await User.findOne({ telephone: telephone, password: password });
+  return response;
 }
+
 const createUser = async (user) => {
   return await User.create(user);
 }
