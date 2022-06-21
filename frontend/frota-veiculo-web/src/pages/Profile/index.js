@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './style.css'
 import logoImg from '../../assets/logo.png'
 import { Link, useHistory } from 'react-router-dom'
-import { FiPower, FiArrowRight, FiArrowLeft } from 'react-icons/fi'
+import { FiPower, FiArrowRight, FiArrowLeft, FiDisc } from 'react-icons/fi'
 import api from '../../services/api'
 export default function Profile() {
 
@@ -33,6 +33,29 @@ export default function Profile() {
   function handleLogout() {
     localStorage.clear();
     history.push('/');
+  }
+
+  // atualizar a corrida
+  async function handleStatusRide(id, status) {
+    console.log(id);
+    console.log(status)
+    let type;
+    if (status === "asked") type = "start";
+    if (status === "started") type = "finish";
+    const data = { "type": type };
+    console.log('rides/' + id)
+    const response = await api.patch('rides/' + id, data,
+      {
+        headers: {
+          'x-access-token': `${token}`
+        }
+      });
+
+    console.log(response.data);
+    if (response.data) {
+      alert('Corrida atualizada com sucesso, recarregue a página !')
+    }
+
   }
 
   function nextPage() {
@@ -87,10 +110,21 @@ export default function Profile() {
             <strong>STATUS</strong>
             <p>{props.status}</p>
 
+            {
+              (props.status !== "finished") && (< strong >
+                <Link>
+                  <strong onClick={() => handleStatusRide(props._id, props.status)}>
+                    ATUALIZAR CORRIDA
+                  </strong>
+                </Link>
+
+              </strong>)
+            }
+
           </li>
         ))}
 
       </ul>
-    </div>
+    </div >
   );
 }

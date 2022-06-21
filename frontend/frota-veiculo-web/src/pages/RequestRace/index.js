@@ -36,7 +36,7 @@ export default function RequestRace(props) {
     catch (err) {
       //alert(err.response.data);
       console.log(err)
-      alert("Erro ao solicitar corrida!");
+      alert(err.response.data);
     }
   }
 

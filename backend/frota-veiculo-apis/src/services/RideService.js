@@ -74,10 +74,7 @@ const userHistory = async (telephone, page) => {
 
 const ask = async (telephone, startPlace, finishPlace) => {
   try {
-    console.log("estou aqui")
     const user = await userRepository.findUserByTelephone(telephone);
-
-    console.log(user);
 
     if (!user) {
       return {
@@ -86,7 +83,7 @@ const ask = async (telephone, startPlace, finishPlace) => {
       }
     } else {
       const busyUser = await rideRepository.checkBusyUser(user);
-
+      console.log(busyUser)
       if (busyUser) {
         return {
           statusCode: 403,
