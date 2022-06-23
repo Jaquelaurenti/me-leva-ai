@@ -1,5 +1,6 @@
 const userRepository = require('../repositories/UserRepository');
 const jwt = require('jsonwebtoken');
+require('dotenv').config();
 
 const index = async (page) => {
   try {
@@ -109,7 +110,7 @@ const logon = async (telephone, password) => {
         data: 'Login inválido!'
       }
     }
-    const token = jwt.sign({ user }, "testeJaque", {
+    const token = jwt.sign({ user }, process.env.SECRET_KEY, {
       expiresIn: 3000 // expiração
     });
 
