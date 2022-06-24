@@ -111,6 +111,7 @@ const logon = async (telephone, password) => {
   try {
     // get por telefone para validar a senha
     const userPassword = await userRepository.findUserByTelephone(telephone);
+
     if (userPassword) {
       const hash = userPassword.password;
       const verifyPassword = security.verifyPassword(password, hash);

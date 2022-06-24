@@ -2,7 +2,9 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const requireDir = require('require-dir');
+require('dotenv').config();
 
+// TODO swagger
 const swaggerUi = require('swagger-ui-express')
 const swaggerFile = require('../swagger_output.json');
 
@@ -15,8 +17,7 @@ app.use(cors());
 
 // Iniciando o DB
 mongoose.connect(
-  //'mongodb://localhost:27017/frotaVeiculo',
-  "mongodb+srv://jaquelaurenti:H0FDQSBtU61gl87E@melevaaipessoal.4rqgens.mongodb.net/?retryWrites=true&w=majority",
+  process.env.MONGO_CONNECTION,
   {
     useNewUrlParser: true,
     useUnifiedTopology: true
@@ -30,10 +31,10 @@ requireDir('./src/models');
 app.use('/api', require('./src/routers/index.routes'));
 
 
-// instanciando o swagger
+// TODO instanciando o swagger
 
-app.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerFile))
+app.use('/api/doc', swaggerUi.serve, swaggerUi.setup(swaggerFile))
 
 console.log("Ounvindo em http://localhost:3001/api")
-app.listen(3001);
+app.listen(process.env.PORT);
 

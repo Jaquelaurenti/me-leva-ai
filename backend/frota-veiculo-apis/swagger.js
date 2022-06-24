@@ -1,7 +1,9 @@
 const swaggerAutogen = require('swagger-autogen')()
 
-const outputFile = './swagger_output.json';
-const endpointsFiles = ['./frota-veiculo-apis/src/routers/index.routes.js'];
+const outputFile = './swagger_output.json'; // Arquivo que será gerado com as rotas
+const endpointsFiles = ['./frota-veiculo-apis/src/routers/index.routes.js']; // endpoint de onde está armazenada todas as rotas
+
+// Documentação
 
 const doc = {
   info: {
@@ -10,14 +12,15 @@ const doc = {
     description: ""
   },
   host: "localhost:3001",
-  basePath: "/api",
+  basePath: "/api", // rota base
   consumes: ['application/json'],
   produces: ['application/json'],
+  // Informações sobre a autenticação
   securityDefinitions: {
     Authorization: {
       type: "apiKey",
       in: "header",
-      name: "x-access-key",
+      name: "x-access-token",
       description: "Adicionar o token gerado no login"
     }
   },
