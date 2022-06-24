@@ -1,6 +1,6 @@
 const express = require('express');
 const routesVehicle = express.Router();
-const verifyJWT = require('../../src/utils/VerifyToken');
+const verifyJWT = require('../middleware/verifyToken');
 
 
 // importando o controller

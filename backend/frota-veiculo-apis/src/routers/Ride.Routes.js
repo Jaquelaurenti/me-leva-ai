@@ -2,7 +2,7 @@ const express = require('express');
 const routesRide = express.Router();
 // importando o controller
 const RideController = require('../controllers/RideController');
-const verifyJWT = require('../../src/utils/VerifyToken');
+const verifyJWT = require('../middleware/verifyToken');
 
 routesRide.post('', verifyJWT, RideController.ask);
 routesRide.get('', verifyJWT, RideController.history);
