@@ -1,6 +1,7 @@
 const userRepository = require('../repositories/UserRepository');
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
+const security = require('../utils/Security');
 
 const index = async (page) => {
   try {
@@ -26,8 +27,7 @@ const index = async (page) => {
 
 const store = async (userParam) => {
   try {
-    const { telephone } = userParam;
-    console.log(userParam);
+    const { telephone, name, email, password } = userParam;
     let user = await userRepository.findUserByTelephone(telephone)
 
     if (user) {
@@ -36,7 +36,14 @@ const store = async (userParam) => {
         data: 'Usuário já cadastrado!'
       }
     }
-    user = await userRepository.createUser(userParam);
+    const hashPassword = security.encrypt(password.toString());
+    const userData = {
+      name,
+      email,
+      telephone,
+      password: hashPassword
+    }
+    user = await userRepository.createUser(userData);
     return {
       statusCode: 201,
       data: user
@@ -102,23 +109,37 @@ const destroy = async (telephone) => {
 
 const logon = async (telephone, password) => {
   try {
-    const user = await userRepository.findUserByTelephoneAndPassWord(telephone, password);
-    console.log(user)
-    if (!user) {
-      return {
-        statusCode: 500,
-        data: 'Login inválido!'
+    // get por telefone para validar a senha
+    const userPassword = await userRepository.findUserByTelephone(telephone);
+    if (userPassword) {
+      const hash = userPassword.password;
+      const verifyPassword = security.verifyPassword(password, hash);
+      if (!verifyPassword) {
+        return {
+          statusCode: 500,
+          data: 'Senha inválida!'
+        }
       }
-    }
-    const token = jwt.sign({ user }, process.env.SECRET_KEY, {
-      expiresIn: 3000 // expiração
-    });
 
-    const userAll = await userRepository.findUserById(user._id);
-    const data = { auth: true, token: token, user: userAll }
-    return {
-      statusCode: 200,
-      data: data
+      const user = await userRepository.findUserByTelephoneAndPassWord(telephone, hash);
+      console.log(user)
+      if (!user) {
+        return {
+          statusCode: 500,
+          data: 'Login inválido!'
+        }
+      }
+      const token = jwt.sign({ user }, process.env.SECRET_KEY, {
+        expiresIn: 3000 // expiração
+      });
+
+      const userAll = await userRepository.findUserById(user._id);
+      const data = { auth: true, token: token, user: userAll }
+      return {
+        statusCode: 200,
+        data: data
+      }
+
     }
   }
   catch (error) {
