@@ -1,7 +1,7 @@
-const userService = require('../frota-veiculo-apis/src/services/UserService');
+const userService = require('../../frota-veiculo-apis/src/services/UserService');
 const mockingoose = require('mockingoose');
 
-const UserModel = require("../frota-veiculo-apis/src/models/Users");
+const UserModel = require("../../frota-veiculo-apis/src/models/Users");
 
 afterEach(() => {
   jest.restoreAllMocks()
