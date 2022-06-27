@@ -7,7 +7,7 @@ const encrypt = (password) => {
 }
 
 const verifyPassword = (password, hash) => {
-  return bcrypt.compareSync(password.toString(), hash);
+  return bcrypt.compareSync(password, hash);
 }
 
 module.exports = {

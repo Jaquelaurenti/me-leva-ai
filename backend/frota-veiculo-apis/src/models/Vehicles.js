@@ -22,4 +22,4 @@ const VehicleSchema = new mongoose.Schema({
 VehicleSchema.plugin(mongoosePaginate);
 
 // Registrando o schema
-mongoose.model('Vehicle', VehicleSchema);
+module.exports = mongoose.model('Vehicle', VehicleSchema);

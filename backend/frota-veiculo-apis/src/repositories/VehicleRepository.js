@@ -1,6 +1,5 @@
-const mongoose = require('mongoose');
-const Vehicle = mongoose.model('Vehicle');
 const NewLicensePlate = require('../utils/NewLicensePlate');
+const Vehicle = require('../models/Vehicles');
 
 const createVehicleAutomatic = async () => {
   return await Vehicle.create({

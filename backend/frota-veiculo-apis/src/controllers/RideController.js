@@ -24,7 +24,6 @@ const userHistory = async (req, res) => {
 const ask = async (req, res) => {
   const { telephone, startPlace, finishPlace } = req.body;
 
-  console.log(req.body);
   const response = await rideService.ask(telephone, startPlace, finishPlace);
   return res.status(response.statusCode).json(response.data);
 }

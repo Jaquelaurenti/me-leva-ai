@@ -6,6 +6,8 @@ const security = require('../utils/Security');
 const index = async (page) => {
   try {
     const users = await userRepository.findUser(page);
+    console.log("no index");
+    console.log(users)
     if (!users) {
       return {
         statusCode: 404,
@@ -28,7 +30,10 @@ const index = async (page) => {
 const store = async (userParam) => {
   try {
     const { telephone, name, email, password } = userParam;
-    let user = await userRepository.findUserByTelephone(telephone)
+    let user = await userRepository.findUserByTelephone(telephone);
+
+    console.log(user);
+
 
     if (user) {
       return {
@@ -36,7 +41,8 @@ const store = async (userParam) => {
         data: 'Usuário já cadastrado!'
       }
     }
-    const hashPassword = security.encrypt(password.toString());
+    const hashPassword = security.encrypt(password);
+
     const userData = {
       name,
       email,
@@ -112,8 +118,12 @@ const logon = async (telephone, password) => {
     // get por telefone para validar a senha
     const userPassword = await userRepository.findUserByTelephone(telephone);
 
+    console.log("estou no logon service")
+    console.log(userPassword)
     if (userPassword) {
       const hash = userPassword.password;
+      console.log(hash);
+
       const verifyPassword = security.verifyPassword(password, hash);
       if (!verifyPassword) {
         return {
@@ -123,7 +133,7 @@ const logon = async (telephone, password) => {
       }
 
       const user = await userRepository.findUserByTelephoneAndPassWord(telephone, hash);
-      console.log(user)
+
       if (!user) {
         return {
           statusCode: 500,

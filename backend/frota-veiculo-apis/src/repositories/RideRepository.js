@@ -1,16 +1,13 @@
-const mongoose = require('mongoose');
 const vehicleRepository = require('../repositories/VehicleRepository');
-const Ride = mongoose.model('Ride');
+const Ride = require('../models/Rides')
 
 const getRide = async (id) => {
   return await Ride.findById(id);
 }
 const getRides = async (page) => {
-  console.log('getRides')
   return await Ride.paginate({}, { page, limit: 10 });
 }
 const getUserRides = async (telephone, page) => {
-  console.log(telephone)
   return await Ride.paginate({ 'user.telephone': telephone }, { page, limit: 10 });
 }
 const askNewRide = async (user, vehicle, startPlace, finishPlace) => {

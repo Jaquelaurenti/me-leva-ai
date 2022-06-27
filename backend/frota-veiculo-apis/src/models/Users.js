@@ -30,4 +30,4 @@ const UserSchema = new mongoose.Schema({
 UserSchema.plugin(mongoosePaginate);
 
 // Registrando o schema
-mongoose.model('User', UserSchema);
+module.exports = mongoose.model('User', UserSchema);

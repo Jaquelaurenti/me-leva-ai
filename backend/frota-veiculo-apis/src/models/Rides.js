@@ -68,4 +68,4 @@ const RideSchema = new mongoose.Schema({
 RideSchema.plugin(mongoosePaginate);
 
 // Registrando o schema
-mongoose.model('Ride', RideSchema);
+module.exports = mongoose.model('Ride', RideSchema);
