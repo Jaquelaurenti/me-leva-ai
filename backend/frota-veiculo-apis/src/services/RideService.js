@@ -6,8 +6,6 @@ const userRepository = require('../repositories/UserRepository');
 const status = async (id) => {
   try {
     const rides = await rideRepository.getRides(id);
-    console.log("estou aqui")
-    console.log(rides)
     if (!rides) {
       return {
         statusCode: 404,
@@ -83,7 +81,6 @@ const ask = async (telephone, startPlace, finishPlace) => {
       }
     } else {
       const busyUser = await rideRepository.checkBusyUser(user);
-      console.log(busyUser)
       if (busyUser) {
         return {
           statusCode: 403,
@@ -109,7 +106,6 @@ const ask = async (telephone, startPlace, finishPlace) => {
     }
   }
   catch (error) {
-    console.log(error)
     return {
       statusCode: 500,
       data: error
@@ -120,11 +116,7 @@ const ask = async (telephone, startPlace, finishPlace) => {
 const updateStatus = async (id, type) => {
   try {
 
-    console.log("stou aqui")
-    console.log(id, type)
-
     let ride = await rideRepository.getRide(id);
-    console.log(ride)
 
     if (!ride) {
       return {

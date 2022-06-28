@@ -105,8 +105,6 @@ describe("Testes de Usuário", () => {
     // remover o usuário
     const userResponse = await userService.index();
 
-    console.log(userResponse)
-
     expect(userResponse.statusCode).toBe(200);
   });
 
