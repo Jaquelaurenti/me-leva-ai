@@ -1,6 +1,5 @@
-const app = require("../../frota-veiculo-apis/server");
-const supertest = require('supertest');
-const request = supertest(app);
+const app = require("../../frota-veiculo-apis/app");
+const request = require('supertest');
 
 describe("User", () => {
 
@@ -11,9 +10,9 @@ describe("User", () => {
       password: '123456',
       telephone: '999999'
     }
-    const response = await request.post("/user").send({ user });
+    const response = await request(app).post("/api/user").send(user);
 
-    expect(response.statusCode).toBe(200);
+    expect(response.statusCode).toBe(201);
 
   });
 });
