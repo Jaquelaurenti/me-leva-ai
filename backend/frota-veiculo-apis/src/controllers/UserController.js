@@ -8,6 +8,7 @@ const index = async (req, res) => {
 }
 
 const store = async (req, res) => {
+  console.log("Estou aqui no create")
   const user = req.body;
   const response = await userService.store(user);
   return res.status(response.statusCode).json(response.data);

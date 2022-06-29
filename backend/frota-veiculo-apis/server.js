@@ -2,8 +2,9 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const requireDir = require('require-dir');
-require('dotenv').config();
-
+require("dotenv").config({
+  path: process.env.NODE_ENV === "test" ? ".env.test" : ".env"
+});
 // TODO swagger
 const swaggerUi = require('swagger-ui-express')
 const swaggerFile = require('../swagger_output.json');
@@ -35,6 +36,8 @@ app.use('/api', require('./src/routers/index.routes'));
 
 app.use('/api/doc', swaggerUi.serve, swaggerUi.setup(swaggerFile))
 
-console.log("Ounvindo em http://localhost:3001/api")
+console.log("Servidor está de pé em:  http://localhost:3001/api")
 app.listen(process.env.PORT);
 
+
+module.exports = app;
