@@ -72,6 +72,7 @@ describe("Testes de Usuário", () => {
   });
 
   test('deverá retornar mensagem de erro ao tentar remover um usuário que não existe na base', async () => {
+
     const userParam = {
       _id: "62b8df3b85371c1b1502e791",
       name: 'Teste',

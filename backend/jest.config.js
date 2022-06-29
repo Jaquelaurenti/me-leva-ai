@@ -3,5 +3,5 @@ module.exports = {
   collectCoverage: true,
   coverageDirectory: "coverage", // gera a pasta coverage com o relatorio
   coverageProvider: "v8",
-  testEnvironment: "node",
+  testEnvironment: "node"
 };
