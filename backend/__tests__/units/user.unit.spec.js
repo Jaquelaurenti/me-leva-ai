@@ -108,7 +108,5 @@ describe("Testes de Usuário", () => {
 
     expect(userResponse.statusCode).toBe(200);
   });
-
-
 });
 

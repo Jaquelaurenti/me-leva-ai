@@ -52,7 +52,7 @@ const store = async (bodyVehicle) => {
     if (!vehicles) {
       return {
         statusCode: 404,
-        data: 'Nenhum veículo encontrado!'
+        data: 'Veículo já cadastrado na base'
       }
     }
     return {
