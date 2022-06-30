@@ -29,9 +29,6 @@ const store = async (userParam) => {
   try {
     const { telephone, name, email, password } = userParam;
     let user = await userRepository.findUserByTelephone(telephone);
-
-
-
     if (user) {
       return {
         statusCode: 406,
@@ -144,6 +141,12 @@ const logon = async (telephone, password) => {
         data: data
       }
 
+    }
+    else {
+      return {
+        statusCode: 402,
+        data: "Usuário não encontrado"
+      }
     }
   }
   catch (error) {

@@ -15,7 +15,11 @@ const VehicleSchema = new mongoose.Schema({
   status: {
     type: String,
     required: true
-  }
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
 });
 
 // Registrando o mongoose paginate da Aplicação

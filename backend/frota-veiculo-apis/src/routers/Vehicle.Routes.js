@@ -5,10 +5,10 @@ const verifyJWT = require('../middleware/verifyToken');
 
 // importando o controller
 const VehicleController = require('../controllers/VehicleController');
-routesVehicle.get('/vehicles', verifyJWT, VehicleController.index);
-routesVehicle.post('/vehicles', verifyJWT, VehicleController.store);
-routesVehicle.get('/vehicles/:id', verifyJWT, VehicleController.show);
-routesVehicle.put('/vehicles/:id', verifyJWT, VehicleController.update);
-routesVehicle.delete('/vehicles/:id', verifyJWT, VehicleController.destroy);
+routesVehicle.get('', verifyJWT, VehicleController.index);
+routesVehicle.post('', verifyJWT, VehicleController.store);
+routesVehicle.get('/:id', verifyJWT, VehicleController.show);
+routesVehicle.put('/:id', verifyJWT, VehicleController.update);
+routesVehicle.delete('/:id', verifyJWT, VehicleController.destroy);
 
 module.exports = routesVehicle;

@@ -61,7 +61,11 @@ const RideSchema = new mongoose.Schema({
   finishTime: {
     type: Date,
     required: false
-  }
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
 });
 
 // Registrando o mongoose paginate da Aplicação

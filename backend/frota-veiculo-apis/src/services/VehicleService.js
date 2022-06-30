@@ -94,11 +94,18 @@ const update = async (id, vehicleUpdate) => {
 
 const destroy = async (id) => {
   try {
-    const vehicles = await vehicleRepository.findByIdAndRemove(id);
+    const vehicles = await vehicleRepository.findById(id);
     if (!vehicles) {
-      return res.status(404)
-        .json({ message: 'Nenhum veículo encontrado' });
+      return {
+        statusCode: 404,
+        data: 'Veículo não encontrado!'
+      }
     }
+
+
+    await vehicleRepository.findByIdAndRemove(id);
+
+
     return {
       statusCode: 200,
       data: 'Veículo deletado com sucesso!'

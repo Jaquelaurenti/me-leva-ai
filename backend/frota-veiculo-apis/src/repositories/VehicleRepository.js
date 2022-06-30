@@ -35,7 +35,7 @@ const findByIdAndUpdate = async (id, body) => {
   return await Vehicle.findByIdAndUpdate(req.params.id, req.body, { new: true });
 }
 const findByIdAndRemove = async (id) => {
-  await Vehicle.findByIdAndRemove(id);
+  return await Vehicle.findByIdAndRemove(id);
 }
 
 
