@@ -36,7 +36,7 @@ describe("Testes de Veículos", () => {
     //Mockando o usuario
     mockingoose(vehicleModel).toReturn(data, 'findOne');
 
-    const response = await userService.store(data);
+    const response = await vehicleService.store(data);
 
     expect(response.statusCode).toBe(404);
     expect(response.data).toBe('Veículo já cadastrado na base');
