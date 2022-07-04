@@ -9,6 +9,7 @@ routesUsers.post('/login', UserController.logon);
 routesUsers.post('', UserController.store);
 routesUsers.put('/:telephone', verifyJWT, UserController.update);
 routesUsers.delete('/:telephone', verifyJWT, UserController.destroy);
+routesUsers.post('/refreshtoken', verifyJWT, UserController.refreshToken);
 
 
 

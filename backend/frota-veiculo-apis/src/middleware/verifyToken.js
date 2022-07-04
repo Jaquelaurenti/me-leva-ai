@@ -9,7 +9,7 @@ module.exports = (req, res, next) => {
 
   // no lugar do testeJaque podemos pegar do arquivo .env
   jwt.verify(token, process.env.SECRET_KEY, function (err, decoded) {
-    if (err) return res.status(500).json({ auth: false, message: 'Falha ao atenticar o Token' });
+    if (err) return res.status(500).json({ auth: false, message: 'Falha ao atenticar o Token', messageError: err.message });
     req.userId = decoded.user._id;
     next();
   });

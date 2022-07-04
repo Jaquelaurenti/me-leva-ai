@@ -1,6 +1,8 @@
 const userRepository = require('../repositories/UserRepository');
 const jwt = require('jsonwebtoken');
-require('dotenv').config();
+require("dotenv").config({
+  path: process.env.NODE_ENV === "test" ? ".env.test" : ".env"
+});
 const security = require('../utils/Security');
 
 const index = async (page) => {
@@ -133,9 +135,10 @@ const logon = async (telephone, password) => {
       const token = jwt.sign({ user }, process.env.SECRET_KEY, {
         expiresIn: 3000 // expiração
       });
+      const refreshToken = jwt.sign({ user }, process.env.SECRET_KEY, { expiresIn: 8000 })
 
       const userAll = await userRepository.findUserById(user._id);
-      const data = { auth: true, token: token, user: userAll }
+      const data = { auth: true, token: token, refreshToken: refreshToken, user: userAll }
       return {
         statusCode: 200,
         data: data
@@ -156,6 +159,34 @@ const logon = async (telephone, password) => {
     }
   }
 }
+
+const refreshToken = async (token) => {
+  const decodedToken = jwt.decode(token);
+  if (!decodedToken) {
+    return {
+      statusCode: 500,
+      data: 'Erro ao decodificar token!'
+    }
+  }
+  const { telephone, password } = decodedToken.user;
+  const user = await userRepository.findUserByTelephoneAndPassWord(telephone, password);
+  if (!user) {
+
+    return {
+      statusCode: 500,
+      data: 'Usuário inválido'
+    }
+  }
+  const refreshToken = jwt.sign({ user }, process.env.SECRET_KEY, { expiresIn: process.env.REFRESH_TOKEN_LIFE });
+
+  const data = { refreshToken: refreshToken }
+
+  return {
+    statusCode: 200,
+    data: data
+  }
+
+}
 module.exports = {
-  logon, destroy, update, store, index
+  logon, destroy, update, store, index, refreshToken
 };

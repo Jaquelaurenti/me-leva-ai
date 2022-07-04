@@ -34,6 +34,13 @@ const logon = async (req, res) => {
   return res.status(response.statusCode).json(response.data);
 
 }
+
+const refreshToken = async (req, res) => {
+  const { token } = req.body;
+  const response = await userService.refreshToken(token);
+  return res.status(response.statusCode).json(response.data);
+
+}
 module.exports = {
-  logon, destroy, update, store, index
+  logon, destroy, update, store, index, refreshToken
 };
