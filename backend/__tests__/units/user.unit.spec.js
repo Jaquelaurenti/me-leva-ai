@@ -65,7 +65,7 @@ describe("Testes de Usuário", () => {
     mockingoose(UserModel).toReturn(userParam, 'findOne');
 
     // remover o usuário
-    const userResponse = await userService.destroy(userParam);
+    const userResponse = await userService.destroy(userParam.telephone);
 
     expect(userResponse.statusCode).toBe(200);
     expect(userResponse.data).toBe('Usuário deletado com sucesso!');

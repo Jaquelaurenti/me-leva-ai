@@ -22,17 +22,14 @@ const getAvailableVehicle = async () => {
 }
 const setVehicleBusy = async (vehicle) => {
   vehicle.status = 'busy'
-  return await Vehicle.findByIdAndUpdate(vehicle._id, vehicle);
+  return await Vehicle.findOneAndUpdate({_id: vehicle._id}, vehicle);
 }
 const setVehicleAvailable = async (vehicle) => {
   vehicle.status = 'available'
-  return await Vehicle.findByIdAndUpdate(vehicle._id, vehicle);
+  return await Vehicle.findOneAndUpdate({_id: vehicle._id}, vehicle);
 }
 const findById = async (id) => {
   return await Vehicle.findById(id);
-}
-const findByIdAndUpdate = async (id, body) => {
-  return await Vehicle.findByIdAndUpdate(req.params.id, req.body, { new: true });
 }
 const findByIdAndRemove = async (id) => {
   return await Vehicle.findByIdAndRemove(id);
@@ -47,6 +44,5 @@ module.exports = {
   create,
   paginate,
   findById,
-  findByIdAndUpdate,
   findByIdAndRemove
 }

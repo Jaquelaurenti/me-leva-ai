@@ -81,6 +81,7 @@ const ask = async (telephone, startPlace, finishPlace) => {
       }
     } else {
       const busyUser = await rideRepository.checkBusyUser(user);
+
       if (busyUser) {
         return {
           statusCode: 403,
@@ -90,6 +91,7 @@ const ask = async (telephone, startPlace, finishPlace) => {
     }
 
     let vehicle = await vehicleRepository.getAvailableVehicle();
+
 
     if (vehicle) {
       vehicle = await vehicleRepository.setVehicleBusy(vehicle);
@@ -115,9 +117,7 @@ const ask = async (telephone, startPlace, finishPlace) => {
 
 const updateStatus = async (id, type) => {
   try {
-
     let ride = await rideRepository.getRide(id);
-
     if (!ride) {
       return {
         statusCode: 404,

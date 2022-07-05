@@ -22,7 +22,7 @@ const findByIdAndUpdate = async (id, body) => {
   return await User.findByIdAndUpdate(id, body, { new: true })
 }
 const findByIdAndRemove = async (id) => {
-  return await User.findByIdAndRemove(id);
+  return await User.findOneAndRemove({ _id: id });
 }
 
 module.exports = {

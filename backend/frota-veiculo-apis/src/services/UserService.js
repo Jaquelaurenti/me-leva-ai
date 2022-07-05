@@ -88,7 +88,6 @@ const destroy = async (telephone) => {
   try {
 
     let user = await userRepository.findUserByTelephone(telephone);
-
     if (!user) {
       return {
         statusCode: 400,

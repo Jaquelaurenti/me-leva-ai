@@ -14,7 +14,6 @@ const show = async (req, res) => {
 };
 
 const store = async (req, res) => {
-  console.log("Estou aqui no controller Vehicle")
   const vehicle = req.body;
   const response = await vehicleService.store(vehicle);
   return res.status(response.statusCode).json(response.data);

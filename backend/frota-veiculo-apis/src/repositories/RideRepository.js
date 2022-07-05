@@ -2,7 +2,7 @@ const vehicleRepository = require('../repositories/VehicleRepository');
 const Ride = require('../models/Rides')
 
 const getRide = async (id) => {
-  return await Ride.findById(id);
+  return await Ride.findOne({ _id: id });
 }
 const getRides = async (page) => {
   return await Ride.paginate({}, { page, limit: 10 });
@@ -24,7 +24,7 @@ const startRide = async (ride) => {
   ride.startTime = new Date();
   ride.status = 'started';
 
-  return await Ride.findByIdAndUpdate(ride._id, ride, { new: true });
+  return await Ride.findOneAndUpdate({ _id: ride._id }, ride);
 }
 const finishRide = async (ride) => {
 
@@ -34,7 +34,7 @@ const finishRide = async (ride) => {
   //ride.vehicle = vehicleRepository.setVehicleAvailable(ride.vehicle);
   vehicleRepository.setVehicleAvailable(ride.vehicle);
 
-  return await Ride.findByIdAndUpdate(ride._id, ride, { new: true });
+  return await Ride.findOneAndUpdate({ _id: ride._id }, ride);
 }
 const checkBusyUser = async (user) => {
   return await Ride.findOne({ $and: [{ "user.telephone": user.telephone }, { $or: [{ status: "asked" }, { status: "started" }] }] });
