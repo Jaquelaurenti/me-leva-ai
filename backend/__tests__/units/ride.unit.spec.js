@@ -12,27 +12,28 @@ afterEach(() => {
 describe('Teste de Corrida', () => {
   test('Deverá inserir uma corrida', async () => {
     const data = {
-      user: '123456789',
+      user: '0123456789',
       vehicle: 'xxx-0000',
       startPlace: 'Teste',
       finishPlace: 'Teste Final',
       status: 'asked'
     }
 
-    const userData= {
+
+    const userData = {
       _id: "62b8df3b85371c1b1502e791",
-      name: 'Teste',
-      email: 'teste@mail.com',
-      telephone: '99999999',
-      password: '123456'
+      name: 'teste',
+      email: 'teste@teste.com',
+      password: '123456',
+      telephone: '0123456789'
     };
 
-    const vehicleData= {
+    const vehicleData = {
       _id: "62bf83f8818b2e4b5795fe0c",
-			licensePlate: "xxx-0000",
-			model: "Tesla",
-			status: "avaialable",
-			createdAt: "2022-07-01T23:32:08.976Z",
+      licensePlate: "xxx-0000",
+      model: "Tesla",
+      status: "avaialable",
+      createdAt: "2022-07-01T23:32:08.976Z",
     };
 
     //Mockando o usuario
@@ -43,10 +44,10 @@ describe('Teste de Corrida', () => {
 
     const vehicleDataUpdate = {
       _id: "62bf83f8818b2e4b5795fe0c",
-			licensePlate: "xxx-0000",
-			model: "Tesla",
-			status: "busy",
-			createdAt: "2022-07-01T23:32:08.976Z",
+      licensePlate: "xxx-0000",
+      model: "Tesla",
+      status: "busy",
+      createdAt: "2022-07-01T23:32:08.976Z",
     };
     //Mockando o veículo para o satus busy
     mockingoose(vehicleModel).toReturn(vehicleDataUpdate, 'findOneAndUpdate');
@@ -66,10 +67,10 @@ describe('Teste de Corrida', () => {
       _id: '62c49e69b52490951c26dd70',
       user: {
         _id: '62b8df3b85371c1b1502e791',
-        name: 'Teste',
-        email: 'teste@mail.com',
-        telephone: '99999999',
+        name: 'teste',
+        email: 'teste@teste.com',
         password: '123456',
+        telephone: '0123456789',
         createdAt: '2022-07-05T20:26:17.420Z'
       },
       vehicle: {

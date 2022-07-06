@@ -12,33 +12,32 @@ describe("Testes de Usuário", () => {
 
   test('deverá criar o cliente se o usuário não exisitir na base', async () => {
     const userParam = {
-      name: 'Teste',
-      email: 'teste@mail.com',
-      telephone: '99999999',
-      password: '123456'
+      name: 'teste',
+      email: 'teste@teste.com',
+      password: '123456',
+      telephone: '0123456789'
     };
 
     // Forçando o retorno null quando realizar um findOne
-    // mockingoose(UserModel).toReturn(null, 'findOne');
+    mockingoose(UserModel).toReturn(null, 'findOne');
+
     // Se eu fosse criar diretamente no banco sem passar pela service
-    // mockingoose(UserModel).toReturn(userParam, 'create')
+    //mockingoose(UserModel).toReturn(userParam, 'create')
 
-
-    // Nao printo o password por que ele é dinamico
     const userResponse = await userService.store(userParam);
     expect(userResponse.statusCode).toBe(201);
-    expect(userResponse.data.name).toBe('Teste');
-    expect(userResponse.data.email).toBe('teste@mail.com');
-    expect(userResponse.data.telephone).toBe('99999999');
+    expect(userResponse.data.name).toBe('teste');
+    expect(userResponse.data.email).toBe('teste@teste.com');
+    expect(userResponse.data.telephone).toBe('0123456789');
   });
 
   test('deverá retornar mensagem de erro ao criar um usuário que já existe na base', async () => {
     const userParam = {
       _id: "62b8df3b85371c1b1502e791",
-      name: 'Teste',
-      email: 'teste@mail.com',
-      telephone: '99999999',
-      password: '123456'
+      name: 'teste',
+      email: 'teste@teste.com',
+      password: '123456',
+      telephone: '0123456789'
     };
 
     //Mockando o usuario
@@ -55,10 +54,10 @@ describe("Testes de Usuário", () => {
   test('deverá remover um usuário', async () => {
     const userParam = {
       _id: "62b8df3b85371c1b1502e791",
-      name: 'Teste',
-      email: 'teste@mail.com',
-      telephone: '99999999',
-      password: '123456'
+      name: 'teste',
+      email: 'teste@teste.com',
+      password: '123456',
+      telephone: '0123456789'
     };
 
     //Mockando o usuario
@@ -75,10 +74,10 @@ describe("Testes de Usuário", () => {
 
     const userParam = {
       _id: "62b8df3b85371c1b1502e791",
-      name: 'Teste',
-      email: 'teste@mail.com',
-      telephone: '99999999',
-      password: '123456'
+      name: 'teste',
+      email: 'teste@teste.com',
+      password: '123456',
+      telephone: '0123456789'
     };
 
     //Mockando o null
@@ -95,10 +94,10 @@ describe("Testes de Usuário", () => {
   test('deverá retornar os usuários cadastrados na base', async () => {
     const userParam = {
       _id: "62b8df3b85371c1b1502e791",
-      name: 'Teste',
-      email: 'teste@mail.com',
-      telephone: '99999999',
-      password: '123456'
+      name: 'teste',
+      email: 'teste@teste.com',
+      password: '123456',
+      telephone: '0123456789'
     }
     //Mockando os usuarios
     mockingoose(UserModel).toReturn(userParam, 'find');

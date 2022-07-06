@@ -73,7 +73,6 @@ const userHistory = async (telephone, page) => {
 const ask = async (telephone, startPlace, finishPlace) => {
   try {
     const user = await userRepository.findUserByTelephone(telephone);
-
     if (!user) {
       return {
         statusCode: 404,
@@ -93,6 +92,7 @@ const ask = async (telephone, startPlace, finishPlace) => {
     let vehicle = await vehicleRepository.getAvailableVehicle();
 
 
+
     if (vehicle) {
       vehicle = await vehicleRepository.setVehicleBusy(vehicle);
     }
@@ -102,6 +102,12 @@ const ask = async (telephone, startPlace, finishPlace) => {
 
     const ride = await rideRepository.askNewRide(user, vehicle, startPlace, finishPlace);
 
+    if(!ride) {
+      return {
+        statusCode: 500,
+        data: "Problema ao criar a corrida"
+      }
+    }
     return {
       statusCode: 201,
       data: ride
