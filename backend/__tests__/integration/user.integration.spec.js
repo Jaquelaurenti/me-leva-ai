@@ -8,7 +8,7 @@ describe("User", () => {
       name: 'teste',
       email: 'teste@teste.com',
       password: '123456',
-      telephone: '999999'
+      telephone: '0123456789'
     }
     const response = await request(app).post("/api/user").send(user);
 
