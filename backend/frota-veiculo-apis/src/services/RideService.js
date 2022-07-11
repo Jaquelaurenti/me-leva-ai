@@ -73,6 +73,7 @@ const userHistory = async (telephone, page) => {
 const ask = async (telephone, startPlace, finishPlace) => {
   try {
     const user = await userRepository.findUserByTelephone(telephone);
+
     if (!user) {
       return {
         statusCode: 404,
@@ -89,8 +90,7 @@ const ask = async (telephone, startPlace, finishPlace) => {
       }
     }
 
-    let vehicle = await vehicleRepository.getAvailableVehicle();
-
+    let vehicle = await vehicleRepository.getAvailableVehicle();npm
 
 
     if (vehicle) {
@@ -99,6 +99,8 @@ const ask = async (telephone, startPlace, finishPlace) => {
     else {
       vehicle = await vehicleRepository.createVehicleAutomatic();
     }
+
+    console.log("Chegou ate aqui", vehicle)
 
     const ride = await rideRepository.askNewRide(user, vehicle, startPlace, finishPlace);
 
@@ -109,6 +111,7 @@ const ask = async (telephone, startPlace, finishPlace) => {
       }
     }
     return {
+
       statusCode: 201,
       data: ride
     }

@@ -116,4 +116,61 @@ describe('Teste de Corrida', () => {
     const response = await rideService.updateStatus(rideData._id, status);
     expect(JSON.parse(JSON.stringify(response.data))).toMatchObject(rideDataUpdate);
   });
+
+  test('Deverá finalizar uma corrida', async () => {
+    const status = "finish";
+    const rideData = {
+      _id: '62c49e69b52490951c26dd70',
+      user: {
+        _id: '62b8df3b85371c1b1502e791',
+        name: 'teste',
+        email: 'teste@teste.com',
+        password: '123456',
+        telephone: '0123456789',
+        createdAt: '2022-07-05T20:26:17.420Z'
+      },
+      vehicle: {
+        _id: '62bf83f8818b2e4b5795fe0c',
+        licensePlate: 'xxx-0000',
+        model: 'Tesla',
+        status: 'busy',
+        createdAt: '2022-07-01T23:32:08.976Z'
+      },
+      startPlace: 'Teste',
+      finishPlace: 'Teste Final',
+      status: 'started',
+      createdAt: '2022-07-05T20:26:17.430Z'
+    }
+
+    //Mockando o getRides
+    mockingoose(rideModel).toReturn(rideData, 'findOne');
+    //mockando o updateStatus
+    const rideDataUpdate = {
+      _id: '62c49e69b52490951c26dd70',
+      user: {
+        _id: '62b8df3b85371c1b1502e791',
+        name: 'Teste',
+        email: 'teste@mail.com',
+        telephone: '99999999',
+        password: '123456',
+        createdAt: '2022-07-05T20:26:17.420Z'
+      },
+      vehicle: {
+        _id: '62bf83f8818b2e4b5795fe0c',
+        licensePlate: 'xxx-0000',
+        model: 'Tesla',
+        status: 'busy',
+        createdAt: '2022-07-01T23:32:08.976Z'
+      },
+      startPlace: 'Teste',
+      finishPlace: 'Teste Final',
+      status: 'finished',
+      createdAt: '2022-07-05T20:26:17.430Z'
+    }
+    mockingoose(rideModel).toReturn(rideDataUpdate, 'findOneAndUpdate');
+
+    const response = await rideService.updateStatus(rideData._id, status);
+    expect(JSON.parse(JSON.stringify(response.data))).toMatchObject(rideDataUpdate);
+  });
 });
+
