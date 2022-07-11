@@ -14,6 +14,7 @@ const mockToken = (user) => {
   });
 }
 
+jest.setTimeout(30000);
 
 describe('Testes integrados de corrida', () => {
   test('Deverá criar uma corrida', async () => {
