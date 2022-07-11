@@ -90,7 +90,7 @@ const ask = async (telephone, startPlace, finishPlace) => {
       }
     }
 
-    let vehicle = await vehicleRepository.getAvailableVehicle();npm
+    let vehicle = await vehicleRepository.getAvailableVehicle();
 
 
     if (vehicle) {
