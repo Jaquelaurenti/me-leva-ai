@@ -8,7 +8,8 @@
     "swagger-autogen": "node frota-veiculo-apis/swagger.js",
     "test": "jest --force-exit",
     "test:watch": "jest --watch",
-    "test:cov": "jest --coverage --force-exit"
+    "test:cov": "jest --coverage --force-exit",
+    "test:debug": "node --inspect node_modules/.bin/jest --runInBand"
   },
   "keywords": [],
   "author": "",
